@@ -1,7 +1,19 @@
+/**
+ * Student Name: Wenjie Zhou
+ * Student Number: 301337168
+ * Submission Date: Apr 12, 2024
+ */
+
 import axios from 'axios';
 
+// Defines a Add component for adding new student records
 const Add = () => {
 
+    // Setting the base URL for all Axios requests and enabling credentials for CORS
+    axios.defaults.baseURL = 'http://localhost:8085';
+    axios.defaults.withCredentials = true;
+
+    // Event handler for form submission to add a new student
     const addStudent = async (event) => {
         event.preventDefault();
 
@@ -16,20 +28,18 @@ const Add = () => {
                 address: event.target.address.value,
                 phone: event.target.phone.value,
                 email: event.target.email.value,
-                password: "123456" // Default password when admin creates student document
+                password: event.target.password.value
             };
 
-            // Send a POST request to add the student
-            await axios.post('http://localhost:8085/api/students', formData);
+            await axios.post('/api/students', formData);
 
-            // Clear the form input fields
+            // Reset the form fields after successful submission 
             event.target.reset();
 
         } catch (error) {
             console.error('Error adding student:', error);
         }
     };
-
 
     return (
         <main>
@@ -38,7 +48,6 @@ const Add = () => {
                     <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                         <span className="fs-4">Admin Portal</span>
                     </a>
-
                     <ul className="nav nav-pills">
                         <li className="nav-item"><a href="/" className="nav-link">Home</a></li>
                         <li className="nav-item"><a href="/add" className="nav-link">Add</a></li>
@@ -59,6 +68,7 @@ const Add = () => {
                             <input type="text" name='address' id='address' className="form-control form-control-sm" placeholder="Address" required />
                             <input type="text" name='phone' id='phone' className="form-control form-control-sm" placeholder="Phone Number" required />
                             <input type="email" name='email' id='email' className="form-control form-control-sm" placeholder="Email" required />
+                            <input type="text" name='password' id='password' className="form-control form-control-sm" placeholder="password" required />
                             <button type="submit" className='btn btn-primary btn-sm'>Add Student</button>
                             <button type="reset" className='btn btn-secondary btn-sm'>Reset</button>
                         </div>

@@ -8,9 +8,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
-import Add from './pages/Add';
-import Edit from './pages/Edit';
-import Detail from './pages/Detail';
+import Login from './pages/Login';
+import Course from './pages/Course';
 
 // Setting up Router to manage routing across different components
 function App() {
@@ -18,10 +17,9 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/add" element={<Add />} />
-          <Route path="/edit/:id" element={<Edit />} />
-          <Route path="/detail/:id" element={<Detail />} />
+          <Route exact path="/" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/course" element={<Course />} />
         </Routes>
       </Router>
     </div>

@@ -1,16 +1,31 @@
+/**
+ * Student Name: Wenjie Zhou
+ * Student Number: 301337168
+ * Submission Date: Apr 12, 2024
+ */
+
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
+// Defines an Edit component for editing a selected student info
 const Edit = () => {
+
+    // Setting the base URL for all Axios requests and enabling credentials for CORS
+    axios.defaults.baseURL = 'http://localhost:8085';
+    axios.defaults.withCredentials = true;
+
+    // Extract the student ID from the URL parameters
     const { id } = useParams();
 
+    // Effect hook to fetch student data when the component mounts or the student ID changes
     useEffect(() => {
         const fetchStudentById = async () => {
             try {
-                const response = await axios.get(`http://localhost:8085/api/students/${id}`);
+                const response = await axios.get(`/api/students/${id}`);
                 const studentData = response.data;
 
+                // Populate form fields with fetched data
                 document.getElementById('_id').value = studentData._id;
                 document.getElementById('firstName').value = studentData.firstName;
                 document.getElementById('lastName').value = studentData.lastName;
@@ -28,8 +43,10 @@ const Edit = () => {
         fetchStudentById();
     }, [id]);
 
+    // Handle form submission for updating student
     const updateStudent = async () => {
         try {
+            // Construct an updated student object from form data
             const updatedStudent = {
                 _id: document.getElementById('_id').value,
                 firstName: document.getElementById('firstName').value,
@@ -43,7 +60,7 @@ const Edit = () => {
                 password: document.getElementById('password').value
             };
 
-            await axios.put(`http://localhost:8085/api/students/${id}`, updatedStudent);
+            await axios.put(`/api/students/${id}`, updatedStudent);
 
         } catch (error) {
             console.error('Error updating student:', error);
@@ -57,7 +74,6 @@ const Edit = () => {
                     <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                         <span className="fs-4">Admin Portal</span>
                     </a>
-
                     <ul className="nav nav-pills">
                         <li className="nav-item"><a href="/" className="nav-link">Home</a></li>
                         <li className="nav-item"><a href="/add" className="nav-link">Add</a></li>
