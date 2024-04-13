@@ -35,9 +35,11 @@ const Add = () => {
 
             // Reset the form fields after successful submission 
             event.target.reset();
-
+            alert('Add student successful!');
+            
         } catch (error) {
             console.error('Error adding student:', error);
+            alert('Add student failed!');
         }
     };
 

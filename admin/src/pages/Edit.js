@@ -44,26 +44,30 @@ const Edit = () => {
     }, [id]);
 
     // Handle form submission for updating student
-    const updateStudent = async () => {
+    const updateStudent = async (event) => {
+        event.preventDefault();
+
         try {
             // Construct an updated student object from form data
             const updatedStudent = {
-                _id: document.getElementById('_id').value,
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                dob: document.getElementById('dob').value,
-                gender: document.getElementById('gender').value,
-                nationality: document.getElementById('nationality').value,
-                address: document.getElementById('address').value,
-                phone: document.getElementById('phone').value,
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value
+                _id: event.target._id.value,
+                firstName: event.target.firstName.value,
+                lastName: event.target.lastName.value,
+                dob: event.target.dob.value,
+                gender: event.target.gender.value,
+                nationality: event.target.nationality.value,
+                address: event.target.address.value,
+                phone: event.target.phone.value,
+                email: event.target.email.value,
+                password: event.target.password.value
             };
 
             await axios.put(`/api/students/${id}`, updatedStudent);
+            alert('Update successful!');
 
         } catch (error) {
             console.error('Error updating student:', error);
+            alert('Update failed!');
         }
     };
 

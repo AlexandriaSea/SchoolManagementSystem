@@ -47,6 +47,13 @@ const Home = () => {
 
     // Function to handle unenrollment from a course
     const deleteEnrollment = async (studentId, courseId) => {
+        // Display a popup window to ask the user for confirmation to withdraw a course
+        const confirmWithdraw = window.confirm(`You are about to withdraw the selected course \nCourse ID: ${courseId} \nAre you sure?`);
+        if (!confirmWithdraw) {
+            return;
+        }
+
+        // If user comfirm the withdraw of course, delete the course enrollment
         try {
             await axios.delete(`/api/enrollments/${studentId}/${courseId}`);
             // Update courses state by filtering out the unenrolled course

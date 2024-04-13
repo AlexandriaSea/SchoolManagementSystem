@@ -54,9 +54,13 @@ const Course = () => {
                 courseId: courseId,
                 term: term
             };
+
             await axios.post('/api/enrollments', enrollment);
+            alert('You have enrolled a course successfully!')
+
         } catch (error) {
             console.error('Error deleting enrollment:', error);
+            alert('Enroll course failed!')
         }
     };
 
